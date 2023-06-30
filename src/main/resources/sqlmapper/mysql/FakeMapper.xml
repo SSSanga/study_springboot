@@ -5,7 +5,7 @@
     // Map selectByUID(HashMap map){
    // 들어오는 방식이 이렇게 되는것. 
     //   } -->
-	<select id="selectByUID" parameterType="String"
+	<select id="selectByUID" parameterType="Map"
 		resultType="Map">
         <!-- // company_id로 select할것 -->
         <!-- // 들어오는 것은 parameterType에 넣어준다 = String-->

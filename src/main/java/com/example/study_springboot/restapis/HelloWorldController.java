@@ -113,13 +113,13 @@ public class HelloWorldController {
         // IOC
         return ResponseEntity.ok().body(arrayList);
     }
-
+///helloWorldResponseFake/?
     @GetMapping("/helloWorldResponseFake/{companyId}")
     public ResponseEntity<Object> helloWorldResponseFake(@PathVariable String companyId) {
 
         ArrayList arrayList = new ArrayList();
         new HelloWorldService();
-        arrayList = helloworldservice.fakeSelect(companyId);
+        helloworldservice.fakeSelect(companyId);
 
         return ResponseEntity.ok().body(arrayList);
     }
