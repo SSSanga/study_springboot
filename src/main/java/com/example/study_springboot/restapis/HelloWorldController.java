@@ -13,8 +13,8 @@ import com.example.study_springboot.service.HelloWorldService;
 
 @Controller()
 public class HelloWorldController {
-    @Autowired // DI 
-HelloWorldService helloworldservice ;
+    @Autowired // DI
+    HelloWorldService helloworldservice;
 
     // cap만 씌우면 url이 어떤 class로 동작되는지 list정도는 들어가게됨.
     // dispather?랑은 다른느낌???
@@ -67,6 +67,7 @@ HelloWorldService helloworldservice ;
         // RETURN 할때 BODY와 HEADER를 같이 보냄요.
         return ResponseEntity.ok().body(resultMap);
     }
+
     // {
     // "CMPNM": "로이유통",
     // "spm_row": 471,
@@ -74,7 +75,7 @@ HelloWorldService helloworldservice ;
     // "SN": 1
     // } 보내면 결과가 이렇게 나오는데 그럼 currentpage, perpage도 표시하려면 Hashmap에 넣어야하는건가?
     // 아니면 db의 위치라는건가????????????
-// /helloWorldResponseList/1/10/1
+    // /helloWorldResponseList/1/10/1
     @GetMapping("/helloWorldResponseList/{currentPage}/{perPage}/{SN}")
     public ResponseEntity<Object> helloWorldResponseList(@PathVariable String currentPage, @PathVariable String perPage,
             @PathVariable String SN) {
@@ -95,20 +96,31 @@ HelloWorldService helloworldservice ;
         resultMap.put("RDNMADR", 3);
         arrayList.add(resultMap);
 
-
         return ResponseEntity.ok().body(arrayList);
     }
+
     @GetMapping("/helloWorldResponseWithService/{currentPage}/{perPage}/{SN}")
-    public ResponseEntity<Object> helloWorldResponseWithService(@PathVariable String currentPage, @PathVariable String perPage,
+    public ResponseEntity<Object> helloWorldResponseWithService(@PathVariable String currentPage,
+            @PathVariable String perPage,
             @PathVariable String SN) {
         // "spm_row": 471, "SN": 1, "CMPNM": "로이유통", "RDNMADR": null
         // "spm_row": 571, "SN": 2, "CMPNM": "의료유통", "RDNMADR": 3
-        
-//존재하던 arraylist를 helloworldservice로 옮김 거기서 가져와서 출력할거임. 
-ArrayList arrayList = new ArrayList();
- new HelloWorldService();
-arrayList = helloworldservice.fakeSelect(currentPage, perPage);
-// IOC
-return ResponseEntity.ok().body(arrayList);
+
+        // 존재하던 arraylist를 helloworldservice로 옮김 거기서 가져와서 출력할거임.
+        ArrayList arrayList = new ArrayList();
+        new HelloWorldService();
+        arrayList = helloworldservice.fakeSelect(currentPage, perPage);
+        // IOC
+        return ResponseEntity.ok().body(arrayList);
+    }
+
+    @GetMapping("/helloWorldResponseFake/{companyId}")
+    public ResponseEntity<Object> helloWorldResponseFake(@PathVariable String companyId) {
+
+        ArrayList arrayList = new ArrayList();
+        new HelloWorldService();
+        arrayList = helloworldservice.fakeSelect(companyId);
+
+        return ResponseEntity.ok().body(arrayList);
     }
 }
