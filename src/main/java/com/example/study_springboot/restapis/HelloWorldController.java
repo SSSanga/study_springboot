@@ -110,10 +110,11 @@ public class HelloWorldController {
         ArrayList arrayList = new ArrayList();
         new HelloWorldService();
         arrayList = helloworldservice.fakeSelect(currentPage, perPage);
-        // IOC
+        // IoC
         return ResponseEntity.ok().body(arrayList);
     }
-///helloWorldResponseFake/?
+// /helloWorldResponseFake/?
+// db_cars 에서 가져온것. 
     @GetMapping("/helloWorldResponseFake/{companyId}")
     public ResponseEntity<Object> helloWorldResponseFake(@PathVariable String companyId) {
 
