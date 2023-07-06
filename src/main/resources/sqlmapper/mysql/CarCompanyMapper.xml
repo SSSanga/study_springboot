@@ -20,7 +20,7 @@
             </otherwise>
     </choose>
         <!-- 여기서 WHERE조건은 상수라서 무시하고 출력함.  -->
-
+</select>
 <!-- 전체 불러오기  -->
 	<select id="selectAll" parameterType="Map" resultType="Map">
         SELECT *

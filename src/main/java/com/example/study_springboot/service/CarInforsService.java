@@ -27,6 +27,16 @@ public class CarInforsService {
 
     }
 
+    
+    //parameter가 search와 words를 받는것과 dataMap을 받는게 다르므로 
+    // 다르게 들어옴. 
+    public Object selectSearch(Map dataMap) {
+        String sqlMapId = "CarInfors.selectSearch";
+
+       Object result = sharedDao.getList(sqlMapId, dataMap);
+        return result;
+
+    }
     // 검색 (search : 첫번째 조건 YEAR, 두번째 조건 CAR_NAME)
     // SharedDao에서 public Object getList 사용
     public Object selectSearch(String search, String words) {

@@ -10,7 +10,7 @@
             <when test="search == 'YEAR'">
             <![CDATA[
 
-            AND YEAR > #{words}
+            AND YEAR = #{words}
 
             ]]>
             </when>
@@ -55,7 +55,7 @@
 <!-- 수정 -->
     <update id="update" parameterType="Map">
         UPDATE car_infors
-        SET CAR_NAME = '코나'
+        SET CAR_NAME = #{CAR_NAME}
         WHERE CAR_INFOR_ID = #{CAR_INFOR_ID}
     </update>
 <!-- 삭제 -->
