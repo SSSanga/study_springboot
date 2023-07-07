@@ -14,29 +14,29 @@ import com.example.study_springboot.dao.SharedDao;
 public class CarInforsService {
     @Autowired
     SharedDao sharedDao;
-// <!-- mybatis foreach Map.put("CAR_INFOR_ID_LIST",CAR_INFOR_ID_LIST)-->
+    // <!-- mybatis foreach Map.put("CAR_INFOR_ID_LIST",CAR_INFOR_ID_LIST)-->
 
     public Object selectInUID(Map dataMap) {
-                // 아예 받아올때 hashmap자체로 받아올 수 있게
-                // map으로 한 이유는 hashmap보다 상위 클래스이므로
-                // or 아예 가장 최상위의 Object로 받아도 상관무. 
+        // 아예 받아올때 hashmap자체로 받아올 수 있게
+        // map으로 한 이유는 hashmap보다 상위 클래스이므로
+        // or 아예 가장 최상위의 Object로 받아도 상관무.
         String sqlMapId = "CarInfors.selectInUID";
-              
+
         Object result = sharedDao.getList(sqlMapId, dataMap);
         return result;
 
     }
 
-    
-    //parameter가 search와 words를 받는것과 dataMap을 받는게 다르므로 
-    // 다르게 들어옴. 
+    // parameter가 search와 words를 받는것과 dataMap을 받는게 다르므로
+    // 다르게 들어옴.
     public Object selectSearch(Map dataMap) {
         String sqlMapId = "CarInfors.selectSearch";
 
-       Object result = sharedDao.getList(sqlMapId, dataMap);
+        Object result = sharedDao.getList(sqlMapId, dataMap);
         return result;
 
     }
+
     // 검색 (search : 첫번째 조건 YEAR, 두번째 조건 CAR_NAME)
     // SharedDao에서 public Object getList 사용
     public Object selectSearch(String search, String words) {
@@ -93,6 +93,33 @@ public class CarInforsService {
         return result;
     }
 
+    // MVC 의 View에서 사용됨.
+    public Object delete(Map dataMap) {
+        // Object result = sqlSessionTemplate.delete(sqlMapId, dataMap);
+        String sqlMapId = "CarInfors.delete";
+        Object result = sharedDao.delete(sqlMapId, dataMap);
+        return result;
+    }
+
+    // MVC 의 View에서 사용됨. deleteandselectsearch
+    // delete 개수, select list
+    // this.delete, this.selectSearch 로 써서 이 Service의 자원을 쓰도록 한다. 
+    // 이때 this는 현 파일에 존재하는 method를... 쓰고 있는것. 
+    // this는 결국 클래스인것. "this." 형식이니까 예상할수있겟..
+    public Object deleteAndSelectSearch(Map dataMap) {
+        HashMap result = new HashMap<>();
+        // String sqlMapId = "CarInfors.delete";
+        // result.put("deleteConut", sharedDao.delete(sqlMapId, dataMap));
+       result.put("deleteConut", this.delete(dataMap));
+
+        // String sqlMapId = "CarInfors.selectSearch";
+        // result.put("resultList", sharedDao.getOne(sqlMapId, dataMap));
+        result.put("resultList", this.selectSearch(dataMap));
+
+        return result;
+    }
+
+    // RestAPI 에서 사용됨
     public Object delete(String CAR_INFOR_ID) {
         // Object result = sqlSessionTemplate.delete(sqlMapId, dataMap);
         String sqlMapId = "CarInfors.delete";

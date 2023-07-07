@@ -15,9 +15,9 @@
             ]]>
             </when>
             
-            <otherwise>
+            <when test="search == 'CAR_NAME'">
             AND CAR_NAME LIKE CONCAT(#{words}, '%')
-            </otherwise>
+            </when>
     </choose>
         <!-- 여기서 WHERE조건은 상수라서 무시하고 출력함.  -->
     </select>

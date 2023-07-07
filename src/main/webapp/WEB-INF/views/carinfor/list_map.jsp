@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ page import="java.util.HashMap, java.util.ArrayList" %>
-        <!DOCTYPE html>
+     <!-- list_map 에서 delete&selectSearch를 진행하고자 함.     -->
+    <!DOCTYPE html>
         <html lang="en">
 
         <head>
@@ -35,8 +36,9 @@
                     </div>
                 </div>
             </nav>
-            <% HashMap Params=(HashMap)request.getAttribute("params") ;
-            String searchSTR=(String)Params.getOrDefault("search", "" );
+            <% HashMap Params=(HashMap)request.getAttribute("params"); 
+            String searchSTR=(String)Params.getOrDefault("search", "" ); 
+            HashMap Result=(HashMap)request.getAttribute("result");
             %>
                 <!-- 이렇게 받고 삼항조건 () ? ;으로 select option에 풀어버려????? -->
 <!-- 세번째 HASHMAP의 안에는 RESULT = deleteand selectsearch로 받은 걸 넣을라고 ...ㅎㅎ -->
@@ -49,9 +51,9 @@
                                 <form action="/carInfor/selectSearch" method="get">
                                     <select class="form-select" name="search">
                                         <option selected>Select an option...</option>
-                                        <option value="YEAR" <%= (searchSTR.equals("YEAR") ) ? "selected" : "" %>> YEAR
+                                        <option value="YEAR" <%=(searchSTR.equals("YEAR") ) ? "selected" : "" %>> YEAR
                                         </option>
-                                        <option value="CAR_NAME" <%= (searchSTR.equals("CAR_NAME") ) ? "selected" : "" %>
+                                        <option value="CAR_NAME" <%=(searchSTR.equals("CAR_NAME") ) ? "selected" : "" %>
                                             > CAR_NAME</option>
                                     </select>
                                     <!-- select는 serchSTR.equals의 year를 비교해서 참이면 select하고 거짓이면 ""을 뱉는다 -->
@@ -76,8 +78,8 @@
                                     <!-- Empty -->
                                     <!-- 이부분을 for문 돌리면서 arrayList로 풀어버린다.  -->
                                     <!-- 받을때는 Controller에서 modelAndView.addObject("result", result)로 들어온 result를 getAttribute한다 -->
-                                    <% ArrayList resultList=(ArrayList)request.getAttribute("result"); 
-                                    for(int i=0 ; i < resultList.size();i=i+1){ HashMap record=(HashMap)resultList.get(i); %>
+                                    <% ArrayList resultList=(ArrayList)Result.get("resultList"); for(int i=0 ; i <
+                                        resultList.size();i=i+1){ HashMap record=(HashMap)resultList.get(i); %>
                                         <form>
                                             <input type="hidden" name="CAR_INFOR_ID" value='<%= record.get("CAR_INFOR_ID") %>' id="">
 
